@@ -4,11 +4,11 @@ use rand::random_range;
 const BYTE_SEQUENCE_HEADER_SIZE: usize = 1;
 
 #[derive(Debug, Clone, PartialEq)]
-pub struct GeneticSequence {
+pub struct NucleotideSequence {
     sequence: Vec<Nucleotide>,
 }
 
-impl GeneticSequence {
+impl NucleotideSequence {
     pub fn new(sequence: Vec<Nucleotide>) -> Self {
         Self { sequence }
     }
