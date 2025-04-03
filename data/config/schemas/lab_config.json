@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "codon_strength": {
+      "type": "object",
+      "properties": {
+        "met": {
+          "type": "number"
+        },
+        "stop": {
+          "type": "number"
+        },
+        "ala": {
+          "type": "number"
+        },
+        "arg": {
+          "type": "number"
+        },
+        "asn": {
+          "type": "number"
+        },
+        "asp": {
+          "type": "number"
+        },
+        "cys": {
+          "type": "number"
+        },
+        "gln": {
+          "type": "number"
+        },
+        "glu": {
+          "type": "number"
+        },
+        "gly": {
+          "type": "number"
+        },
+        "his": {
+          "type": "number"
+        },
+        "ile": {
+          "type": "number"
+        },
+        "leu": {
+          "type": "number"
+        },
+        "lys": {
+          "type": "number"
+        },
+        "phe": {
+          "type": "number"
+        },
+        "pro": {
+          "type": "number"
+        },
+        "ser": {
+          "type": "number"
+        },
+        "thr": {
+          "type": "number"
+        },
+        "trp": {
+          "type": "number"
+        },
+        "tyr": {
+          "type": "number"
+        },
+        "val": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "met",
+        "stop",
+        "ala",
+        "arg",
+        "asn",
+        "asp",
+        "cys",
+        "gln",
+        "glu",
+        "gly",
+        "his",
+        "ile",
+        "leu",
+        "lys",
+        "phe",
+        "pro",
+        "ser",
+        "thr",
+        "trp",
+        "tyr",
+        "val"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "codon_strength"
+  ],
+  "additionalProperties": false
+}

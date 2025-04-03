@@ -1,4 +1,4 @@
-use crate::types::nucleotide::Nucleotide;
+use crate::lab::types::nucleotide::Nucleotide;
 use rand::random_range;
 
 const BYTE_SEQUENCE_HEADER_SIZE: usize = 1;

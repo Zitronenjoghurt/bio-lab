@@ -1,4 +1,4 @@
-use crate::types::nucleotide_sequence::NucleotideSequence;
+use crate::lab::types::nucleotide_sequence::NucleotideSequence;
 
 #[test]
 fn test_byte_parsing() {

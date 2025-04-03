@@ -1,4 +1,4 @@
-use crate::types::codon_sequence::CodonSequence;
+use crate::lab::types::codon_sequence::CodonSequence;
 
 #[test]
 fn test_byte_parsing() {

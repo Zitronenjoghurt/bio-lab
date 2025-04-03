@@ -1,0 +1,22 @@
+codon_strength:
+  met: 1.0
+  stop: 1.0
+  ala: 1.0
+  arg: 1.0
+  asn: 1.0
+  asp: 1.0
+  cys: 1.0
+  gln: 1.0
+  glu: 1.0
+  gly: 1.0
+  his: 1.0
+  ile: 1.0
+  leu: 1.0
+  lys: 1.0
+  phe: 1.0
+  pro: 1.0
+  ser: 1.0
+  thr: 1.0
+  trp: 1.0
+  tyr: 1.0
+  val: 1.0

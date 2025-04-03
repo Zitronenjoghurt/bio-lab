@@ -1,6 +1,6 @@
-use crate::types::codon::Codon;
-use crate::types::nucleotide::Nucleotide;
-use crate::types::nucleotide_sequence::NucleotideSequence;
+use crate::lab::types::codon::Codon;
+use crate::lab::types::nucleotide::Nucleotide;
+use crate::lab::types::nucleotide_sequence::NucleotideSequence;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct CodonSequence {

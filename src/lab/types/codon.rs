@@ -1,4 +1,4 @@
-use crate::types::nucleotide::{Nucleotide, Nucleotide::*};
+use crate::lab::types::nucleotide::{Nucleotide, Nucleotide::*};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Codon {
