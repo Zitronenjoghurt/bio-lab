@@ -28,3 +28,14 @@ impl From<u8> for Nucleotide {
         }
     }
 }
+
+impl From<Nucleotide> for char {
+    fn from(nucleotide: Nucleotide) -> char {
+        match nucleotide {
+            Nucleotide::A => 'A',
+            Nucleotide::T => 'T',
+            Nucleotide::G => 'G',
+            Nucleotide::C => 'C',
+        }
+    }
+}

@@ -13,6 +13,10 @@ impl NucleotideSequence {
         Self { sequence }
     }
 
+    pub fn get_sequence(&self) -> &[Nucleotide] {
+        &self.sequence
+    }
+
     pub fn random(length: u64) -> Self {
         let mut sequence = Vec::with_capacity(length as usize);
         for _ in 0..length {
@@ -22,7 +26,7 @@ impl NucleotideSequence {
         Self::new(sequence)
     }
 
-    pub fn get_bytes(&self) -> Vec<u8> {
+    pub fn to_bytes(&self) -> Vec<u8> {
         // Will determine if the last byte contains an incomplete sequence of less than 4 bytes
         let mask_byte = (self.sequence.len() % 4) as u8;
         let byte_count = (self.sequence.len() + 3) / 4;
@@ -71,11 +75,18 @@ impl NucleotideSequence {
     }
 
     pub fn get_bit_string(&self) -> String {
-        self.get_bytes()
+        self.to_bytes()
             .iter()
             .skip(BYTE_SEQUENCE_HEADER_SIZE)
             .map(|byte| format!("{:08b}", byte))
             .collect::<Vec<String>>()
             .join("")
+    }
+
+    pub fn get_code_string(&self) -> String {
+        self.sequence
+            .iter()
+            .map(|nucleotide| char::from(*nucleotide))
+            .collect::<String>()
     }
 }
