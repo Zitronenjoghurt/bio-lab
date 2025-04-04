@@ -2,6 +2,28 @@ use crate::lab::types::nucleotide::{Nucleotide, Nucleotide::*};
 use rand::rng;
 use rand::seq::IndexedRandom;
 
+const IDENTIFYING_CODON_TYPES: [CodonType; 19] = [
+    CodonType::Ala,
+    CodonType::Arg,
+    CodonType::Asn,
+    CodonType::Asp,
+    CodonType::Cys,
+    CodonType::Gln,
+    CodonType::Glu,
+    CodonType::Gly,
+    CodonType::His,
+    CodonType::Ile,
+    CodonType::Leu,
+    CodonType::Lys,
+    CodonType::Phe,
+    CodonType::Pro,
+    CodonType::Ser,
+    CodonType::Thr,
+    CodonType::Trp,
+    CodonType::Tyr,
+    CodonType::Val,
+];
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Codon {
     Met,
@@ -226,6 +248,21 @@ impl Codon {
             CodonType::Tyr => Self::Tyr(CodonTYR::random()),
             CodonType::Val => Self::Val(CodonVAL::random()),
         }
+    }
+}
+
+impl CodonType {
+    pub fn gene_type_id(value: u32, length: u8) -> Vec<Self> {
+        let mut result = Vec::with_capacity(length as usize);
+        let mut remaining = value;
+
+        for _ in (0..length).rev() {
+            let index = (remaining as usize % IDENTIFYING_CODON_TYPES.len());
+            result.push(IDENTIFYING_CODON_TYPES[index]);
+            remaining /= IDENTIFYING_CODON_TYPES.len() as u32;
+        }
+
+        result
     }
 }
 
