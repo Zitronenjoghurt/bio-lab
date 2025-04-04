@@ -1,4 +1,6 @@
 use crate::lab::types::nucleotide::{Nucleotide, Nucleotide::*};
+use rand::rng;
+use rand::seq::IndexedRandom;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Codon {
@@ -24,6 +26,31 @@ pub enum Codon {
     Trp,
     Tyr(CodonTYR),
     Val(CodonVAL),
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub enum CodonType {
+    Met,
+    Stop,
+    Ala,
+    Arg,
+    Asn,
+    Asp,
+    Cys,
+    Gln,
+    Glu,
+    Gly,
+    His,
+    Ile,
+    Leu,
+    Lys,
+    Phe,
+    Pro,
+    Ser,
+    Thr,
+    Trp,
+    Tyr,
+    Val,
 }
 
 impl Codon {
@@ -174,6 +201,39 @@ impl Codon {
             Self::Gly(CodonGLY::GGG) => [G, G, G],
         }
     }
+
+    pub fn random_from_type(codon_type: CodonType) -> Self {
+        match codon_type {
+            CodonType::Met => Self::Met,
+            CodonType::Stop => Self::Stop(CodonSTOP::random()),
+            CodonType::Ala => Self::Ala(CodonALA::random()),
+            CodonType::Arg => Self::Arg(CodonARG::random()),
+            CodonType::Asn => Self::Asn(CodonASN::random()),
+            CodonType::Asp => Self::Asp(CodonASP::random()),
+            CodonType::Cys => Self::Cys(CodonCYS::random()),
+            CodonType::Gln => Self::Gln(CodonGLN::random()),
+            CodonType::Glu => Self::Glu(CodonGLU::random()),
+            CodonType::Gly => Self::Gly(CodonGLY::random()),
+            CodonType::His => Self::His(CodonHIS::random()),
+            CodonType::Ile => Self::Ile(CodonILE::random()),
+            CodonType::Leu => Self::Leu(CodonLEU::random()),
+            CodonType::Lys => Self::Lys(CodonLYS::random()),
+            CodonType::Phe => Self::Phe(CodonPHE::random()),
+            CodonType::Pro => Self::Pro(CodonPRO::random()),
+            CodonType::Ser => Self::Ser(CodonSER::random()),
+            CodonType::Thr => Self::Thr(CodonTHR::random()),
+            CodonType::Trp => Self::Trp,
+            CodonType::Tyr => Self::Tyr(CodonTYR::random()),
+            CodonType::Val => Self::Val(CodonVAL::random()),
+        }
+    }
+}
+
+trait CodonVariant: Sized + Copy {
+    fn all() -> Vec<Self>;
+    fn random() -> Self {
+        *Self::all().choose(&mut rng()).unwrap()
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -183,6 +243,12 @@ pub enum CodonALA {
     GCC,
     GCA,
     GCG,
+}
+
+impl CodonVariant for CodonALA {
+    fn all() -> Vec<Self> {
+        vec![Self::GCT, Self::GCC, Self::GCA, Self::GCG]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -196,11 +262,30 @@ pub enum CodonARG {
     AGG,
 }
 
+impl CodonVariant for CodonARG {
+    fn all() -> Vec<Self> {
+        vec![
+            Self::CGT,
+            Self::CGC,
+            Self::CGA,
+            Self::CGG,
+            Self::AGA,
+            Self::AGG,
+        ]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonASN {
     AAT,
     AAC,
+}
+
+impl CodonVariant for CodonASN {
+    fn all() -> Vec<Self> {
+        vec![Self::AAT, Self::AAC]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -210,11 +295,23 @@ pub enum CodonASP {
     GAC,
 }
 
+impl CodonVariant for CodonASP {
+    fn all() -> Vec<Self> {
+        vec![Self::GAT, Self::GAC]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonCYS {
     TGT,
     TGC,
+}
+
+impl CodonVariant for CodonCYS {
+    fn all() -> Vec<Self> {
+        vec![Self::TGT, Self::TGC]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -224,11 +321,23 @@ pub enum CodonGLN {
     CAG,
 }
 
+impl CodonVariant for CodonGLN {
+    fn all() -> Vec<Self> {
+        vec![Self::CAA, Self::CAG]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonGLU {
     GAA,
     GAG,
+}
+
+impl CodonVariant for CodonGLU {
+    fn all() -> Vec<Self> {
+        vec![Self::GAA, Self::GAG]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -240,11 +349,23 @@ pub enum CodonGLY {
     GGG,
 }
 
+impl CodonVariant for CodonGLY {
+    fn all() -> Vec<Self> {
+        vec![Self::GGT, Self::GGC, Self::GGA, Self::GGG]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonHIS {
     CAT,
     CAC,
+}
+
+impl CodonVariant for CodonHIS {
+    fn all() -> Vec<Self> {
+        vec![Self::CAT, Self::CAC]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -253,6 +374,12 @@ pub enum CodonILE {
     ATT,
     ATC,
     ATA,
+}
+
+impl CodonVariant for CodonILE {
+    fn all() -> Vec<Self> {
+        vec![Self::ATT, Self::ATC, Self::ATA]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -266,11 +393,30 @@ pub enum CodonLEU {
     CTG,
 }
 
+impl CodonVariant for CodonLEU {
+    fn all() -> Vec<Self> {
+        vec![
+            Self::TTA,
+            Self::TTG,
+            Self::CTT,
+            Self::CTC,
+            Self::CTA,
+            Self::CTG,
+        ]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonLYS {
     AAA,
     AAG,
+}
+
+impl CodonVariant for CodonLYS {
+    fn all() -> Vec<Self> {
+        vec![Self::AAA, Self::AAG]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -280,6 +426,12 @@ pub enum CodonPHE {
     TTC,
 }
 
+impl CodonVariant for CodonPHE {
+    fn all() -> Vec<Self> {
+        vec![Self::TTT, Self::TTC]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonPRO {
@@ -287,6 +439,12 @@ pub enum CodonPRO {
     CCC,
     CCA,
     CCG,
+}
+
+impl CodonVariant for CodonPRO {
+    fn all() -> Vec<Self> {
+        vec![Self::CCT, Self::CCC, Self::CCA, Self::CCG]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -300,12 +458,31 @@ pub enum CodonSER {
     AGC,
 }
 
+impl CodonVariant for CodonSER {
+    fn all() -> Vec<Self> {
+        vec![
+            Self::TCT,
+            Self::TCC,
+            Self::TCA,
+            Self::TCG,
+            Self::AGT,
+            Self::AGC,
+        ]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonSTOP {
     TAA,
     TAG,
     TGA,
+}
+
+impl CodonVariant for CodonSTOP {
+    fn all() -> Vec<Self> {
+        vec![Self::TAA, Self::TAG, Self::TGA]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -317,11 +494,23 @@ pub enum CodonTHR {
     ACG,
 }
 
+impl CodonVariant for CodonTHR {
+    fn all() -> Vec<Self> {
+        vec![Self::ACT, Self::ACC, Self::ACA, Self::ACG]
+    }
+}
+
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum CodonTYR {
     TAT,
     TAC,
+}
+
+impl CodonVariant for CodonTYR {
+    fn all() -> Vec<Self> {
+        vec![Self::TAT, Self::TAC]
+    }
 }
 
 #[allow(clippy::upper_case_acronyms)]
@@ -331,4 +520,10 @@ pub enum CodonVAL {
     GTC,
     GTA,
     GTG,
+}
+
+impl CodonVariant for CodonVAL {
+    fn all() -> Vec<Self> {
+        vec![Self::GTT, Self::GTC, Self::GTA, Self::GTG]
+    }
 }
